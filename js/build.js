@@ -1,9 +1,8 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-// Configure the source layer that you want to use to add to the target
-// Reference: The reference data source used to compare data
-// Validation: The validation style layer used to compare with the source
-var project = {
-    name: 'Toronto Turn Restrictions',
+// App configuration
+
+var app = {
+    name: 'Fieldreports Demo',
     map: {
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v9',
@@ -11,30 +10,10 @@ var project = {
         zoom: 16
     },
     accessToken: 'pk.eyJ1IjoicGxhbmVtYWQiLCJhIjoiemdYSVVLRSJ9.g3lbg_eN0kztmsfIPxa9MQ',
-    mapping: {
-        source: {
-            layer: 'toronto',
-            layer_url: 'http://www1.toronto.ca/wps/portal/contentonly?vgnextoid=c61136899e02b210VgnVCM1000003dd60f89RCRD&vgnextchannel=7807e03bb8d1e310VgnVCM10000071d60f89RCRD',
-            attribution: 'Contains information licensed under the Open Government Licence – Toronto',
-            attribution_url: 'http://www1.toronto.ca/wps/portal/contentonly?vgnextoid=4a37e03bb8d1e310VgnVCM10000071d60f89RCRD',
-            published_date: '01-03-2016'
-        },
-        target: {
-            layer: 'osm-navigation'
-        },
-        status: {
-            layer: 'data-review',
-            dataset: {
-                user: 'theplanemad',
-                accessToken: 'sk.eyJ1IjoidGhlcGxhbmVtYWQiLCJhIjoiY2lyN2RobWgyMDAwOGlrbWdkbWp2cWdjNiJ9.AnPKx0Iqk-uzARdoOthoFg',
-                mapid: 'cir7dq562000eiflw3vesbh88'
-            }
-        }
-    }
 }
 
 // Export module
-module.exports = project;
+module.exports = app;
 
 },{}],2:[function(require,module,exports){
 // Project Settings
@@ -166,7 +145,7 @@ map.on('style.load', function(e) {
 
 });
 
-},{"./map":4,"./mapbox-gl-utils":6,"mapbox/lib/services/datasets":18}],3:[function(require,module,exports){
+},{"./map":4,"./mapbox-gl-utils":6,"mapbox/lib/services/datasets":17}],3:[function(require,module,exports){
 //
 // Definition of Mapbox source layers and corresponding GL styles to overlay
 //
@@ -455,7 +434,7 @@ map.addControl(new mapboxgl.Navigation());
 // Export module
 module.exports = map;
 
-},{"./config":1,"merge":19}],5:[function(require,module,exports){
+},{"./config":1,"merge":18}],5:[function(require,module,exports){
 // Project Settings
 var Config = require('../config').mapping.status.dataset;
 
@@ -887,7 +866,7 @@ module.exports = {
   layers: Merge(mapboxLayers,customLayers)
 };
 
-},{"../layers":3,"merge":19}],8:[function(require,module,exports){
+},{"../layers":3,"merge":18}],8:[function(require,module,exports){
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
 //
 // THIS IS NOT TESTED NOR LIKELY TO WORK OUTSIDE V8!
@@ -1645,38 +1624,13 @@ hat.rack = function (bits, base, expandBy) {
 };
 
 },{}],11:[function(require,module,exports){
-if (typeof Object.create === 'function') {
-  // implementation from standard node.js 'util' module
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    ctor.prototype = Object.create(superCtor.prototype, {
-      constructor: {
-        value: ctor,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
-  };
-} else {
-  // old school shim for old browsers
-  module.exports = function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor
-    var TempCtor = function () {}
-    TempCtor.prototype = superCtor.prototype
-    ctor.prototype = new TempCtor()
-    ctor.prototype.constructor = ctor
-  }
-}
-
-},{}],12:[function(require,module,exports){
 'use strict';
 
 module.exports = function(str) {
   return window.atob(str);
 };
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var interceptor = require('rest/interceptor');
@@ -1708,7 +1662,7 @@ var callbackify = interceptor({
 
 module.exports = callbackify;
 
-},{"rest/interceptor":26}],14:[function(require,module,exports){
+},{"rest/interceptor":25}],13:[function(require,module,exports){
 'use strict';
 
 var rest = require('rest');
@@ -1727,7 +1681,7 @@ module.exports = function(config) {
     .wrap(callbackify);
 };
 
-},{"./callbackify":13,"rest":22,"rest/interceptor/defaultRequest":27,"rest/interceptor/errorCode":28,"rest/interceptor/mime":29,"rest/interceptor/pathPrefix":30,"rest/interceptor/template":31}],15:[function(require,module,exports){
+},{"./callbackify":12,"rest":21,"rest/interceptor/defaultRequest":26,"rest/interceptor/errorCode":27,"rest/interceptor/mime":28,"rest/interceptor/pathPrefix":29,"rest/interceptor/template":30}],14:[function(require,module,exports){
 // We keep all of the constants that declare endpoints in one
 // place, so that we could concievably update this for API layout
 // revisions.
@@ -1750,7 +1704,7 @@ module.exports.API_TILESTATS_LAYER = '/tilestats/v1/{owner}/{tileset}/{layer}';
 module.exports.API_TILESTATS_ATTRIBUTE = '/tilestats/v1/{owner}/{tileset}/{layer}/{attribute}';
 module.exports.API_STATIC = '/v4/{mapid}{+overlay}/{+xyz}/{width}x{height}{+retina}{.format}';
 
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -1791,7 +1745,7 @@ function getUser(token) {
 module.exports = getUser;
 
 }).call(this,require('_process'))
-},{"_process":20,"atob":12}],17:[function(require,module,exports){
+},{"_process":19,"atob":11}],16:[function(require,module,exports){
 'use strict';
 
 var assert = require('assert');
@@ -1849,7 +1803,7 @@ function makeService(name) {
 
 module.exports = makeService;
 
-},{"./client":14,"./constants":15,"./get_user":16,"assert":8}],18:[function(require,module,exports){
+},{"./client":13,"./constants":14,"./get_user":15,"assert":8}],17:[function(require,module,exports){
 'use strict';
 
 var assert = require('assert'),
@@ -2412,7 +2366,7 @@ Datasets.prototype.bulkFeatureUpdate = function(update, dataset, callback) {
   });
 };
 
-},{"../constants":15,"../make_service":17,"assert":8,"geojsonhint/object":9,"hat":10}],19:[function(require,module,exports){
+},{"../constants":14,"../make_service":16,"assert":8,"geojsonhint/object":9,"hat":10}],18:[function(require,module,exports){
 /*!
  * @name JavaScript/NodeJS Merge v1.2.0
  * @author yeikos
@@ -2588,10 +2542,96 @@ Datasets.prototype.bulkFeatureUpdate = function(update, dataset, callback) {
 	}
 
 })(typeof module === 'object' && module && typeof module.exports === 'object' && module.exports);
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 // shim for using process in browser
-
 var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
 var queue = [];
 var draining = false;
 var currentQueue;
@@ -2616,7 +2656,7 @@ function drainQueue() {
     if (draining) {
         return;
     }
-    var timeout = setTimeout(cleanUpNextTick);
+    var timeout = runTimeout(cleanUpNextTick);
     draining = true;
 
     var len = queue.length;
@@ -2633,7 +2673,7 @@ function drainQueue() {
     }
     currentQueue = null;
     draining = false;
-    clearTimeout(timeout);
+    runClearTimeout(timeout);
 }
 
 process.nextTick = function (fun) {
@@ -2645,7 +2685,7 @@ process.nextTick = function (fun) {
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
+        runTimeout(drainQueue);
     }
 };
 
@@ -2684,7 +2724,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],21:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /*
  * Copyright 2012-2013 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -2915,7 +2955,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"./util/mixin":41}],22:[function(require,module,exports){
+},{"./util/mixin":40}],21:[function(require,module,exports){
 /*
  * Copyright 2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -2942,7 +2982,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"./client/default":24,"./client/xhr":25}],23:[function(require,module,exports){
+},{"./client/default":23,"./client/xhr":24}],22:[function(require,module,exports){
 /*
  * Copyright 2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3008,7 +3048,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],24:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /*
  * Copyright 2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3134,7 +3174,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../client":23}],25:[function(require,module,exports){
+},{"../client":22}],24:[function(require,module,exports){
 /*
  * Copyright 2012-2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3310,7 +3350,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../UrlBuilder":21,"../client":23,"../util/normalizeHeaderName":42,"../util/responsePromise":43,"when":65}],26:[function(require,module,exports){
+},{"../UrlBuilder":20,"../client":22,"../util/normalizeHeaderName":41,"../util/responsePromise":42,"when":65}],25:[function(require,module,exports){
 /*
  * Copyright 2012-2015 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3477,7 +3517,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"./client":23,"./client/default":24,"./util/mixin":41,"./util/responsePromise":43,"when":65}],27:[function(require,module,exports){
+},{"./client":22,"./client/default":23,"./util/mixin":40,"./util/responsePromise":42,"when":65}],26:[function(require,module,exports){
 /*
  * Copyright 2013 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3558,7 +3598,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../interceptor":26,"../util/mixin":41}],28:[function(require,module,exports){
+},{"../interceptor":25,"../util/mixin":40}],27:[function(require,module,exports){
 /*
  * Copyright 2012-2013 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3607,7 +3647,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../interceptor":26,"when":65}],29:[function(require,module,exports){
+},{"../interceptor":25,"when":65}],28:[function(require,module,exports){
 /*
  * Copyright 2012-2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3719,7 +3759,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../interceptor":26,"../mime":32,"../mime/registry":33,"when":65}],30:[function(require,module,exports){
+},{"../interceptor":25,"../mime":31,"../mime/registry":32,"when":65}],29:[function(require,module,exports){
 /*
  * Copyright 2012-2013 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3780,7 +3820,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../UrlBuilder":21,"../interceptor":26}],31:[function(require,module,exports){
+},{"../UrlBuilder":20,"../interceptor":25}],30:[function(require,module,exports){
 /*
  * Copyright 2015 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -3838,7 +3878,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../interceptor":26,"../util/mixin":41,"../util/uriTemplate":45}],32:[function(require,module,exports){
+},{"../interceptor":25,"../util/mixin":40,"../util/uriTemplate":44}],31:[function(require,module,exports){
 /*
 * Copyright 2014 the original author or authors
 * @license MIT, see LICENSE.txt for details
@@ -3893,7 +3933,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /*
  * Copyright 2012-2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4010,7 +4050,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../mime":32,"./type/application/hal":34,"./type/application/json":35,"./type/application/x-www-form-urlencoded":36,"./type/multipart/form-data":37,"./type/text/plain":38,"when":65}],34:[function(require,module,exports){
+},{"../mime":31,"./type/application/hal":33,"./type/application/json":34,"./type/application/x-www-form-urlencoded":35,"./type/multipart/form-data":36,"./type/text/plain":37,"when":65}],33:[function(require,module,exports){
 /*
  * Copyright 2013-2015 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4151,7 +4191,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"../../../interceptor/pathPrefix":30,"../../../interceptor/template":31,"../../../util/find":39,"../../../util/lazyPromise":40,"../../../util/responsePromise":43,"when":65}],35:[function(require,module,exports){
+},{"../../../interceptor/pathPrefix":29,"../../../interceptor/template":30,"../../../util/find":38,"../../../util/lazyPromise":39,"../../../util/responsePromise":42,"when":65}],34:[function(require,module,exports){
 /*
  * Copyright 2012-2015 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4200,7 +4240,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],36:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /*
  * Copyright 2012 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4292,7 +4332,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],37:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*
  * Copyright 2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4367,7 +4407,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],38:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /*
  * Copyright 2012 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4398,7 +4438,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],39:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /*
  * Copyright 2013 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4441,7 +4481,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],40:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /*
  * Copyright 2013 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4498,7 +4538,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"when":65}],41:[function(require,module,exports){
+},{"when":65}],40:[function(require,module,exports){
 /*
  * Copyright 2012-2013 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4548,7 +4588,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],42:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 /*
  * Copyright 2012 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4588,7 +4628,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],43:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 /*
  * Copyright 2014-2015 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4730,7 +4770,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"./normalizeHeaderName":42,"when":65}],44:[function(require,module,exports){
+},{"./normalizeHeaderName":41,"when":65}],43:[function(require,module,exports){
 /*
  * Copyright 2015 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -4912,7 +4952,7 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{}],45:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 /*
  * Copyright 2015 the original author or authors
  * @license MIT, see LICENSE.txt for details
@@ -5086,7 +5126,32 @@ process.umask = function() { return 0; };
 	// Boilerplate for AMD and Node
 ));
 
-},{"./uriEncoder":44}],46:[function(require,module,exports){
+},{"./uriEncoder":43}],45:[function(require,module,exports){
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    var TempCtor = function () {}
+    TempCtor.prototype = superCtor.prototype
+    ctor.prototype = new TempCtor()
+    ctor.prototype.constructor = ctor
+  }
+}
+
+},{}],46:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
@@ -5683,7 +5748,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":46,"_process":20,"inherits":11}],48:[function(require,module,exports){
+},{"./support/isBuffer":46,"_process":19,"inherits":45}],48:[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -6751,7 +6816,7 @@ define(function(require) {
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
 
 }).call(this,require('_process'))
-},{"_process":20}],62:[function(require,module,exports){
+},{"_process":19}],62:[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */
@@ -7740,7 +7805,7 @@ define(function() {
 }(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
 
 }).call(this,require('_process'))
-},{"_process":20}],64:[function(require,module,exports){
+},{"_process":19}],64:[function(require,module,exports){
 /** @license MIT License (c) copyright 2010-2014 original author or authors */
 /** @author Brian Cavalier */
 /** @author John Hann */

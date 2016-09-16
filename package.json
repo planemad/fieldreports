@@ -23,6 +23,7 @@
   "author": "Arun Ganesh",
   "license": "ISC",
   "dependencies": {
+    "mapbox": "^0.12.0",
     "merge": "^1.2.0",
     "watchify": "^3.7.0"
   }
