@@ -1,0 +1,17 @@
+/* Map */
+#map {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Mapbox base overrides*/
+h1.fancy{
+  font-size: 16px;
+}
+.sidebar-inner{
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.mapboxgl-popup-close-button {
+    font-size: x-large;
+}
